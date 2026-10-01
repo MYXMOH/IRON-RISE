@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<title>IRON RISE — The Long Grind</title>
+<meta name="theme-color" content="#070c18" />
+<link rel="manifest" href="manifest.json" />
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ======================= TOP BAR ======================= -->
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-badge">IR</div>
+    <div class="brand-text">
+      <span class="brand-title">IRON <em>RISE</em></span>
+      <span class="brand-sub">THE LONG GRIND</span>
+    </div>
+  </div>
+
+  <div class="currency-strip">
+    <div class="currency-pill" data-currency="energy">
+      <span class="cur-icon">⚡</span>
+      <span class="cur-value" id="hud-energy">0</span>
+    </div>
+    <div class="currency-pill" data-currency="power">
+      <span class="cur-icon">💪</span>
+      <span class="cur-value" id="hud-power">0</span>
+    </div>
+    <div class="currency-pill clickable" id="btn-add-coins">
+      <span class="cur-icon">🪙</span>
+      <span class="cur-value" id="hud-coins">0</span>
+      <span class="cur-add">+</span>
+    </div>
+    <div class="currency-pill clickable" id="btn-add-gems">
+      <span class="cur-icon">💎</span>
+      <span class="cur-value" id="hud-gems">0</span>
+      <span class="cur-add">+</span>
+    </div>
+  </div>
+
+  <div class="topbar-actions">
+    <button class="icon-btn" id="btn-nav-daily" title="Daily Reward">🎁</button>
+    <button class="icon-btn" id="btn-nav-settings" title="Settings">⚙️</button>
+  </div>
+</header>
+
+<!-- ======================= DESKTOP SIDE NAV (1 + 4 + 4) ======================= -->
+<nav class="sidenav" id="sidenav">
+  <button class="side-link row-full active" data-tab="home">
+    <span class="side-ico">🏠</span>HOME / TRAIN
+  </button>
+
+  <div class="side-row">
+    <button class="side-link" data-tab="stats"><span class="side-ico">📊</span>STATS</button>
+    <button class="side-link" data-tab="characters"><span class="side-ico">🧍</span>CHARACTERS</button>
+    <button class="side-link" data-tab="upgrades"><span class="side-ico">⬆️</span>UPGRADES</button>
+    <button class="side-link" data-tab="shop"><span class="side-ico">🛒</span>SHOP</button>
+  </div>
+
+  <div class="side-row">
+    <button class="side-link" data-tab="missions"><span class="side-ico">🎯</span>MISSIONS</button>
+    <button class="side-link" data-tab="achievements"><span class="side-ico">🏆</span>ACHIEVEMENTS</button>
+    <button class="side-link" data-tab="daily"><span class="side-ico">🎁</span>DAILY</button>
+    <button class="side-link" data-tab="settings"><span class="side-ico">⚙️</span>SETTINGS</button>
+  </div>
+
+  <div class="sidenav-credits">
+    <div class="credits-name">𝕸𝖔𝖍𝖆𝖒𝖒𝖆𝖉 𝖆𝖌𝖆𝖍</div>
+    <div class="credits-line">created by</div>
+    <div class="credits-line">Telegram: MYXMoh</div>
+  </div>
+</nav>
+
+<!-- ======================= MAIN CONTENT ======================= -->
+<main class="main-area">
+
+  <!-- ============= HOME / TRAIN TAB ============= -->
+  <section class="tab-panel active" id="tab-home">
+    <div class="panel character-panel">
+      <div class="character-panel-head">
+        <span class="character-stage-label">STAGE <span id="char-stage-num">1</span> / 20</span>
+        <span class="character-stage-name" id="char-stage-name">ROOKIE</span>
+      </div>
+
+      <div class="character-power-tag">
+        <div class="cpt-label">POWER</div>
+        <div class="cpt-value" id="char-power-value">0</div>
+      </div>
+
+      <div class="stage-mini-inline">
+        <div class="progress-bar"><div class="progress-fill" id="stage-mini-fill"></div></div>
+        <div class="stage-mini-nums" id="stage-mini-nums">0 / 6K</div>
+      </div>
+
+      <div class="character-stage" id="character-stage">
+        <div id="character-visual"><!-- populated by JS: img or locked placeholder --></div>
+        <div class="critical-flash" id="critical-flash"></div>
+        <div class="popup-layer" id="popup-layer"></div>
+        <div class="particle-layer" id="particle-layer"></div>
+      </div>
+
+      <button class="train-btn" id="btn-train">
+        <span class="train-btn-label">TRAIN</span>
+        <span class="train-btn-sub" id="train-btn-sub">+0 POWER</span>
+      </button>
+
+      <div class="auto-train-row">
+        <span>AUTO TRAIN</span>
+        <button class="toggle" id="toggle-autotrain" aria-pressed="false"><span class="toggle-knob"></span></button>
+      </div>
+
+      <div class="home-combo-row">
+        <span class="hc-label">COMBO</span><span class="hc-val" id="home-combo">x0</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============= STATS TAB ============= -->
+  <section class="tab-panel" id="tab-stats">
+    <h2 class="tab-heading">STATS</h2>
+    <div class="panel stats-panel">
+      <div class="stat-row"><span class="stat-ico">💪</span><span class="stat-label">POWER</span><span class="stat-val" id="stat-power">0</span></div>
+      <div class="stat-row"><span class="stat-ico">⚡</span><span class="stat-label">ENERGY</span><span class="stat-val" id="stat-energy">0/0</span></div>
+      <div class="stat-row"><span class="stat-ico">👊</span><span class="stat-label">PER TAP</span><span class="stat-val" id="stat-pertap">0</span></div>
+      <div class="stat-row"><span class="stat-ico">✳️</span><span class="stat-label">COMBO</span><span class="stat-val" id="stat-combo">x1</span></div>
+      <div class="stat-row"><span class="stat-ico">💥</span><span class="stat-label">CRITICAL</span><span class="stat-val" id="stat-crit">5%</span></div>
+      <div class="stat-row"><span class="stat-ico">🏅</span><span class="stat-label">BEST COMBO</span><span class="stat-val" id="stat-bestcombo">0</span></div>
+      <div class="stat-row"><span class="stat-ico">👊</span><span class="stat-label">TOTAL TAPS</span><span class="stat-val" id="stat-totaltaps">0</span></div>
+      <div class="stat-row"><span class="stat-ico">🪙</span><span class="stat-label">COINS</span><span class="stat-val" id="stat-coins">0</span></div>
+      <div class="stat-row"><span class="stat-ico">💎</span><span class="stat-label">GEMS</span><span class="stat-val" id="stat-gems">0</span></div>
+    </div>
+    <div class="ascension-wrap">
+      <h3 class="panel-title">ASCENSION PATH</h3>
+      <div class="ascension-path" id="ascension-path"></div>
+    </div>
+  </section>
+
+  <!-- ============= CHARACTERS TAB ============= -->
+  <section class="tab-panel" id="tab-characters">
+    <h2 class="tab-heading">CHARACTER GALLERY</h2>
+    <p class="tab-sub">Your character evolves automatically as you gain Power. Selection is not manual.</p>
+    <div class="gallery-grid" id="gallery-grid"></div>
+  </section>
+
+  <!-- ============= UPGRADES TAB ============= -->
+  <section class="tab-panel" id="tab-upgrades">
+    <h2 class="tab-heading">UPGRADES</h2>
+    <p class="tab-sub">Permanent improvements bought with Coins.</p>
+    <div class="upgrades-grid" id="upgrades-grid"></div>
+  </section>
+
+  <!-- ============= SHOP TAB ============= -->
+  <section class="tab-panel" id="tab-shop">
+    <h2 class="tab-heading">SHOP</h2>
+    <p class="tab-sub">Boosts and premium items.</p>
+    <div class="shop-grid" id="shop-grid"></div>
+  </section>
+
+  <!-- ============= MISSIONS TAB ============= -->
+  <section class="tab-panel" id="tab-missions">
+    <h2 class="tab-heading">MISSIONS</h2>
+    <p class="tab-sub">Long-term goals. Some are brutal — pace yourself.</p>
+    <div id="missions-list" class="missions-list"></div>
+  </section>
+
+  <!-- ============= ACHIEVEMENTS TAB ============= -->
+  <section class="tab-panel" id="tab-achievements">
+    <h2 class="tab-heading">ACHIEVEMENTS</h2>
+    <p class="tab-sub">Milestones. Claim rewards once unlocked.</p>
+    <div class="achievements-grid" id="achievements-grid"></div>
+  </section>
+
+  <!-- ============= DAILY TAB ============= -->
+  <section class="tab-panel" id="tab-daily">
+    <h2 class="tab-heading">DAILY REWARD</h2>
+    <div class="daily-card">
+      <div class="daily-icon">🎁</div>
+      <div class="daily-status" id="daily-status">AVAILABLE</div>
+      <div class="daily-timer" id="daily-timer"></div>
+      <div class="daily-streak" id="daily-streak">Streak: 0 days</div>
+      <button class="claim-btn" id="btn-claim-daily">CLAIM REWARD</button>
+    </div>
+  </section>
+
+  <!-- ============= SETTINGS TAB ============= -->
+  <section class="tab-panel" id="tab-settings">
+    <h2 class="tab-heading">SETTINGS</h2>
+    <div class="settings-card">
+      <div class="settings-row">
+        <span>Sound Effects</span>
+        <button class="toggle" id="toggle-sound" aria-pressed="true"><span class="toggle-knob"></span></button>
+      </div>
+      <div class="settings-row">
+        <span>Screen Shake / Flash Effects</span>
+        <button class="toggle" id="toggle-effects" aria-pressed="true"><span class="toggle-knob"></span></button>
+      </div>
+      <div class="settings-row">
+        <span>Manual Save</span>
+        <button class="secondary-btn" id="btn-manual-save">SAVE NOW</button>
+      </div>
+      <div class="settings-row">
+        <span>Install App</span>
+        <button class="secondary-btn" id="btn-install-app">INSTALL</button>
+      </div>
+      <div class="settings-row danger-row">
+        <span>Reset Progress</span>
+        <button class="danger-btn" id="btn-reset">RESET ALL PROGRESS</button>
+      </div>
+      <p class="settings-version">Iron Rise — v2.0.0 — Offline Save</p>
+      <p class="settings-credits">
+        <span class="credits-name-sm">𝕸𝖔𝖍𝖆𝖒𝖒𝖆𝖉 𝖆𝖌𝖆𝖍</span><br/>
+        <span class="credits-line-sm">created by</span><br/>
+        <span class="credits-line-sm">Telegram: MYXMoh</span>
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ======================= MOBILE BOTTOM NAV (scrollable, all 9) ======================= -->
+<nav class="bottomnav" id="bottomnav">
+  <button class="bottom-link active" data-tab="home"><span>🏠</span>HOME</button>
+  <button class="bottom-link" data-tab="stats"><span>📊</span>STATS</button>
+  <button class="bottom-link" data-tab="characters"><span>🧍</span>CHARS</button>
+  <button class="bottom-link" data-tab="upgrades"><span>⬆️</span>UPGR</button>
+  <button class="bottom-link" data-tab="shop"><span>🛒</span>SHOP</button>
+  <button class="bottom-link" data-tab="missions"><span>🎯</span>MISSION</button>
+  <button class="bottom-link" data-tab="achievements"><span>🏆</span>ACHV</button>
+  <button class="bottom-link" data-tab="daily"><span>🎁</span>DAILY</button>
+  <button class="bottom-link" data-tab="settings"><span>⚙️</span>SET</button>
+</nav>
+
+<!-- ======================= TOASTS / MODALS ======================= -->
+<div class="toast-stack" id="toast-stack"></div>
+
+<div class="modal-overlay" id="reset-modal">
+  <div class="modal-box">
+    <h3>RESET ALL PROGRESS?</h3>
+    <p>This will permanently delete your saved progress. This cannot be undone.</p>
+    <div class="modal-actions">
+      <button class="secondary-btn" id="btn-reset-cancel">CANCEL</button>
+      <button class="danger-btn" id="btn-reset-confirm">DELETE EVERYTHING</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="stage-modal">
+  <div class="modal-box stage-modal-box">
+    <div class="stage-modal-glow"></div>
+    <h3>STAGE UP!</h3>
+    <div id="stage-modal-visual"></div>
+    <p id="stage-modal-name">ROOKIE</p>
+    <button class="secondary-btn" id="btn-stage-modal-close">CONTINUE</button>
+  </div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
